@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import styled from "styled-components";
 
@@ -11,6 +11,7 @@ const Container = styled.div`
 const Button = styled.button`
   background-color: green;
   width: 100px;
+  height: 30px;
 `;
 
 const ButtonDelete = styled.button`
@@ -72,6 +73,7 @@ function App() {
     });
     setTodoList(deleteTask);
   }
+
 
   return (
     <Container>
