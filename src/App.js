@@ -9,40 +9,30 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-  display: inline-block;
-  flex: 1;
-  border: none;
   background-color: green;
-  color: white;
-  height: 30px;
-  width: 50px;
-  boarder-radius: 2px;
-  cursor: pointer;
+  width: 100px;
 `;
 
 const ButtonDelete = styled.button`
-  display: inline-block;
   float: right;
-  border: none;
   background-color: red;
-  color: white;
-  height: 20px;
-  width: 60px;
-  border-radius: 30px;
-  cursor: pointer;
+  width: 30px;
 `
 
 const Text = styled.input`
+  width: 75%;
+  margin: 15px;
+  padding: 7px;
   border: 2px solid #000;
 `;
 
 const List = styled.li`
-  min-width: 100%;
-  margin: 5px;
-  padding: 3px;
+  margin: 10px;
+  padding: 5px;
   listStyle: 'none';
   background-color: gainsboro;
   border: 0.5px solid #000;
+  word-wrap: break-word;
 `
 
 function App() {
@@ -85,10 +75,12 @@ function App() {
 
   return (
     <Container>
-      <div>
-        <h1>To-Do List</h1>
-        <Text value={input} onInput={(e) => setInput(e.target.value)} />
-        <Button onClick={() => handleClickAdd()}>Add</Button>
+      <div className='app-container'>
+        <h1 className='app-title'>To-Do List</h1>
+        <div className='input-container'>
+          <Text value={input} onInput={(e) => setInput(e.target.value)} placeholder="Type todo task here!"/>
+          <Button className='btn' onClick={() => handleClickAdd()}>Add</Button>
+        </div>
         <div>
            <ul>
             {todoList.map((todo) => {
@@ -99,7 +91,7 @@ function App() {
                   style={{
                     listStyle: 'none',
                   }}>
-                  {todo.task} <ButtonDelete onClick={() => handleClickDelete(todo.id)}>Remove</ButtonDelete>
+                  {todo.task} <ButtonDelete className='btn' onClick={() => handleClickDelete(todo.id)}>X</ButtonDelete>
                 </List>
               );
             })}
