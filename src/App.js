@@ -31,6 +31,11 @@ const TaskCount = styled.span`
 const Tasks = styled.span`
 `;
 
+const List = styled.li`
+  listStyle: 'none';
+  text-decoration: 'line-through';
+`
+
 
 
 function App() {
@@ -54,6 +59,25 @@ function App() {
     setInput('');
   }
 
+  // If task is pending, change to complete and increase count
+  // If task is complete, change back to pending decrease Complete count
+  const handleComplete = (id) => {
+    let list = todoList.map((task) => {
+      let item = {};
+      if (task.id === id) {
+        if (!task.complete) {
+          setCompletedTaskCount(completedTaskCount + 1);
+        }
+        else {
+          setCompletedTaskCount(completedTaskCount - 1);
+        }
+        item = { ...task, complete: !task.complete };
+      } else item = { ...task };
+      return item;
+    })
+    setTodoList(list);
+  }
+
   return (
     <Container>
       <div>
@@ -70,7 +94,21 @@ function App() {
        </Tasks>
         <div>
            <ul>
-            {/* List items of tasks will go HERE */}
+            {todoList.map((todo) => {
+              return (
+                <List
+                  complete={todo.complete}
+                  id={todo.id}
+                  onClick={() => handleComplete(todo.id)}
+                  style={{
+                    listStyle: 'none',
+                    textDecoration: todo.complete && 'line-through',
+                  }}
+                >
+                  {todo.task}
+                </List>
+              );
+            })}
           </ul>
         </div>
        <Button>Clear</Button>
