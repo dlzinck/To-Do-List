@@ -74,11 +74,26 @@ function App() {
     setTodoList(deleteTask);
   }
 
+  const DateTime = () => {
+    const [date, setDate] = useState(new Date());
+    useEffect(() => {
+      var timer = setInterval(()=>setDate(new Date()), 1000 )
+      return function cleanup() {
+        clearInterval(timer)
+      }
+    });
+    return(
+      <h2 className='date-time'>
+        {date.toLocaleDateString()} {date.toLocaleTimeString()}
+      </h2>
+    )
+  }
 
   return (
     <Container>
       <div className='app-container'>
         <h1 className='app-title'>To-Do List</h1>
+        <DateTime></DateTime>
         <div className='input-container'>
           <Text value={input} onInput={(e) => setInput(e.target.value)} placeholder="Type todo task here!"/>
           <Button className='btn' onClick={() => handleClickAdd()}>Add</Button>
