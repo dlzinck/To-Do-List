@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import styled from "styled-components";
 
@@ -36,15 +36,25 @@ const List = styled.li`
   text-decoration: 'line-through';
 `
 
-
-
 function App() {
   // input is the variable to keep track of tasks user inputs
-  // todoList is an array that will have a list of all tasks each task will be an object with id, task, and complete
   // completedTaskCount will keep track of how many tasks are completed
+  // todoList is an array that will have a list of all tasks each task will be an object with id, task, and complete
+  // use localStorage to save todoList
   const [input, setInput] = useState('');
-  const [todoList, setTodoList] = useState([]);
   const [completedTaskCount, setCompletedTaskCount] = useState(0);
+  const [todoList, setTodoList] = useState(() => {
+    const savedTodoList = localStorage.getItem('todoList');
+    if (savedTodoList) {
+      return JSON.parse(savedTodoList);
+    } else {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('todoList', JSON.stringify(todoList));
+  }, [todoList]);
 
   const handleClick = () => {
     const id = todoList.length + 1;
