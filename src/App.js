@@ -84,7 +84,8 @@ function App() {
     });
     return(
       <h2 className='date-time'>
-        {date.toLocaleDateString()} {date.toLocaleTimeString()}
+        {date.toLocaleDateString()} <br></br>
+        {date.toLocaleTimeString()}
       </h2>
     )
   }
