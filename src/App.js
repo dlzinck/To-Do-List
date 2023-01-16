@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css';
 import styled from "styled-components";
 
@@ -34,12 +34,32 @@ const Tasks = styled.span`
 
 
 function App() {
+  // input is the variable to keep track of tasks user inputs
+  // todoList is an array that will have a list of all tasks each task will be an object with id, task, and complete
+  // completedTaskCount will keep track of how many tasks are completed
+  const [input, setInput] = useState('');
+  const [todoList, setTodoList] = useState([]);
+  const [completedTaskCount, setCompletedTaskCount] = useState(0);
+
+  const handleClick = () => {
+    const id = todoList.length + 1;
+    setTodoList((prev) => [
+      ...prev,
+      {
+        id: id, // Unique id
+        task: input, // Users input is the task
+        complete: false, // False means task is incomplete, true means task is completed
+      },
+    ]);
+    setInput('');
+  }
+
   return (
     <Container>
       <div>
         <h1>To-Do List</h1>
-        <Text> value={input}</Text>
-        <Button>Add</Button>
+        <Text value={input} onInput={(e) => setInput(e.target.value)} />
+        <Button onClick={() => handleClick()}>Add</Button>
         <Tasks>
           <TaskCount>
             <b>Pending</b>
